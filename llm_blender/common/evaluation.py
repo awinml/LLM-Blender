@@ -109,7 +109,7 @@ def eval_bleurt(
         references: the references
     """
     assert len(hypotheses) == len(references)
-    bleurt_scorer = load('bleurt')
+    bleurt_scorer = load('bleurt', 'bleurt-large-512')
     bleurt_scores = []
     with tqdm(total=len(hypotheses), desc="Evaluating bleurt") as pbar:
         for i, (hypo_group, ref) in enumerate(zip(hypotheses, references)):
@@ -134,7 +134,7 @@ def eval_bartscore(
     """
     assert len(hypotheses) == len(references)
     from bart_score import BARTScorer
-    bart_scorer = BARTScorer(device='cuda:0', checkpoint='facebook/bart-large-cnn')
+    bart_scorer = BARTScorer(device='cpu', checkpoint='facebook/bart-large-cnn')
     if not os.path.exists(os.path.join(os.path.dirname(__file__), 'bart_score.pth')):
         print("bart_score.pth trained on ParaBank not found.")
         print("Please download bart_score.pth from bartscore github repo, then put it here: ", os.path.join(os.path.dirname(__file__), 'bart_score.pth'))
