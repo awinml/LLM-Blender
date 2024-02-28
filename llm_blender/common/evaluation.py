@@ -109,7 +109,7 @@ def eval_bleurt(
         references: the references
     """
     assert len(hypotheses) == len(references)
-    bleurt_scorer = load('bleurt', 'bleurt-large-512')
+    bleurt_scorer = load('bleurt')
     bleurt_scores = []
     with tqdm(total=len(hypotheses), desc="Evaluating bleurt") as pbar:
         for i, (hypo_group, ref) in enumerate(zip(hypotheses, references)):
